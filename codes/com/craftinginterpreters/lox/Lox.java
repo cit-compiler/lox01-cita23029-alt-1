@@ -8,9 +8,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
-
-import javax.naming.spi.Resolver;
 
 public class Lox {
 //> Evaluating Expressions interpreter-instance
