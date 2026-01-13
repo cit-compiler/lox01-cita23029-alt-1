@@ -103,9 +103,9 @@ public class Lox {
 /* Parsing Expressions print-ast < Evaluating Expressions interpreter-interpret
     System.out.println(new AstPrinter().print(expression));
 */
-/* Evaluating Expressions interpreter-interpret < Statements and State interpret-statements
+
     interpreter.interpret(expression);
-*/
+
 //> Statements and State interpret-statements
     interpreter.interpret(statements);
 //< Statements and State interpret-statements
