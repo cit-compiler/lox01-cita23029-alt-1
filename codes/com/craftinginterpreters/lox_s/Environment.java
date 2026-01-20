@@ -1,4 +1,4 @@
-package com.craftinginterpreters.lox;
+package com.craftinginterpreters.lox_s;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,6 @@ class Environment {
       return values.get(name.lexeme);
     }
 
-
     throw new RuntimeError(name,
         "Undefined variable '" + name.lexeme + "'.");
   }
@@ -21,7 +20,7 @@ class Environment {
       values.put(name.lexeme, value);
       return;
     }
-    
+
     throw new RuntimeError(name,
         "Undefined variable '" + name.lexeme + "'.");
   }

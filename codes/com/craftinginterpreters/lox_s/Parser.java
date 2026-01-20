@@ -1,12 +1,14 @@
-package com.craftinginterpreters.lox;
+package com.craftinginterpreters.lox_s;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.craftinginterpreters.lox.TokenType.*;
+import static com.craftinginterpreters.lox_s.TokenType.*;
 
 class Parser {
-  private static class ParseError extends RuntimeException {}
+  private static class ParseError extends RuntimeException {
+  }
+
   private final List<Token> tokens;
   private int current = 0;
 
@@ -20,7 +22,7 @@ class Parser {
       statements.add(declaration());
     }
 
-    return statements; 
+    return statements;
   }
 
   private Expr expression() {
@@ -29,7 +31,8 @@ class Parser {
 
   private Stmt declaration() {
     try {
-      if (match(VAR)) return varDeclaration();
+      if (match(VAR))
+        return varDeclaration();
 
       return statement();
     } catch (ParseError error) {
@@ -39,7 +42,8 @@ class Parser {
   }
 
   private Stmt statement() {
-    if (match(PRINT)) return printStatement();
+    if (match(PRINT))
+      return printStatement();
     return expressionStatement();
   }
 
@@ -75,11 +79,11 @@ class Parser {
       Expr value = assignment();
 
       if (expr instanceof Expr.Variable) {
-        Token name = ((Expr.Variable)expr).name;
+        Token name = ((Expr.Variable) expr).name;
         return new Expr.Assign(name, value);
       }
 
-      error(equals, "Invalid assignment target."); 
+      error(equals, "Invalid assignment target.");
     }
 
     return expr;
@@ -144,9 +148,12 @@ class Parser {
   }
 
   private Expr primary() {
-    if (match(FALSE)) return new Expr.Literal(false);
-    if (match(TRUE)) return new Expr.Literal(true);
-    if (match(NIL)) return new Expr.Literal(null);
+    if (match(FALSE))
+      return new Expr.Literal(false);
+    if (match(TRUE))
+      return new Expr.Literal(true);
+    if (match(NIL))
+      return new Expr.Literal(null);
 
     if (match(NUMBER, STRING)) {
       return new Expr.Literal(previous().literal);
@@ -177,18 +184,21 @@ class Parser {
   }
 
   private Token consume(TokenType type, String message) {
-    if (check(type)) return advance();
+    if (check(type))
+      return advance();
 
     throw error(peek(), message);
   }
 
   private boolean check(TokenType type) {
-    if (isAtEnd()) return false;
+    if (isAtEnd())
+      return false;
     return peek().type == type;
   }
 
   private Token advance() {
-    if (!isAtEnd()) current++;
+    if (!isAtEnd())
+      current++;
     return previous();
   }
 
@@ -213,7 +223,8 @@ class Parser {
     advance();
 
     while (!isAtEnd()) {
-      if (previous().type == SEMICOLON) return;
+      if (previous().type == SEMICOLON)
+        return;
 
       switch (peek().type) {
         case VAR:
@@ -224,5 +235,5 @@ class Parser {
       advance();
     }
   }
-  
+
 }
