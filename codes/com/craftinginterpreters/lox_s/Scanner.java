@@ -129,11 +129,11 @@ class Scanner {
       // < whitespace
       // > string-start
 
-      case '"':
-        string('"');
+      case '"': // <1>
+        string('"'); // <2>
         break;
-      case '\'':
-        string('\'');
+      case '\'': // <3>
+        string('\''); // <4>
         break;
 
       // < string-start
@@ -200,7 +200,7 @@ class Scanner {
 
   // < number
   // > string
-  private void string(char quote) {
+  private void string(char quote) { // <2>
     while (peek() != quote && !isAtEnd()) {
       if (peek() == '\n')
         line++;
