@@ -1,4 +1,3 @@
-//> Scanning scanner-class
 package com.craftinginterpreters.lox_s;
 
 import java.util.ArrayList;
@@ -131,8 +130,12 @@ class Scanner {
       // > string-start
 
       case '"':
-        string();
+        string('"');
         break;
+      case '\'':
+        string('\'');
+        break;
+
       // < string-start
       // > char-error
 
@@ -197,8 +200,8 @@ class Scanner {
 
   // < number
   // > string
-  private void string() {
-    while (peek() != '"' && !isAtEnd()) {
+  private void string(char quote) {
+    while (peek() != quote && !isAtEnd()) {
       if (peek() == '\n')
         line++;
       advance();
@@ -209,10 +212,8 @@ class Scanner {
       return;
     }
 
-    // The closing ".
-    advance();
+    advance(); // closing quote
 
-    // Trim the surrounding quotes.
     String value = source.substring(start + 1, current - 1);
     addToken(STRING, value);
   }
